@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AssetManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer_data">
+    <Key>
+      <PropertyRef Name="Customer_id" />
+    </Key>
+    <Property Name="Customer_id" Type="Int32" Nullable="false" />
+    <Property Name="Customer_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Credit_card_number" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Credit_card_number_encrypt" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentId" />
+    </Key>
+    <Property Name="DepartmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Employees" Relationship="Self.FK_Employees_Department" FromRole="Department" ToRole="Employees" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DepartmentId" Type="Int32" />
+    <NavigationProperty Name="Department" Relationship="Self.FK_Employees_Department" FromRole="Employees" ToRole="Department" />
+  </EntityType>
+  <EntityType Name="Site_Asset">
+    <Key>
+      <PropertyRef Name="AssetId" />
+    </Key>
+    <Property Name="Site" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Facility" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="AssetType" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Model" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Asset" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AssetDesc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="AssetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="Tbl_AssestMaster">
+    <Key>
+      <PropertyRef Name="AssetNo" />
+    </Key>
+    <Property Name="AssetNo" Type="Int32" Nullable="false" />
+    <Property Name="AssetType" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="AssignedDate" Type="DateTime" Precision="0" />
+    <Property Name="WarrantyEndDate" Type="DateTime" Precision="0" />
+    <Property Name="Status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AssetTaggedUser" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Vendor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Tbl_UserMaster">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="UserDetail">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Employees_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+    <End Role="Employees" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentId" />
+      </Principal>
+      <Dependent Role="Employees">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AssetManagementEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cities" EntityType="Self.City" />
+    <EntitySet Name="Customer_data" EntityType="Self.Customer_data" />
+    <EntitySet Name="Departments" EntityType="Self.Department" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Site_Asset" EntityType="Self.Site_Asset" />
+    <EntitySet Name="Tbl_AssestMaster" EntityType="Self.Tbl_AssestMaster" />
+    <EntitySet Name="Tbl_UserMaster" EntityType="Self.Tbl_UserMaster" />
+    <EntitySet Name="UserDetails" EntityType="Self.UserDetail" />
+    <AssociationSet Name="FK_Employees_Department" Association="Self.FK_Employees_Department">
+      <End Role="Department" EntitySet="Departments" />
+      <End Role="Employees" EntitySet="Employees" />
+    </AssociationSet>
+    <FunctionImport Name="USP_GetAssetDetails" ReturnType="Collection(AssetManagementModel.USP_GetAssetDetails_Result)" />
+  </EntityContainer>
+  <ComplexType Name="USP_GetAssetDetails_Result">
+    <Property Type="Int32" Name="AssetNo" Nullable="false" />
+    <Property Type="String" Name="AssetType" Nullable="true" MaxLength="200" />
+    <Property Type="DateTime" Name="AssignedDate" Nullable="true" />
+    <Property Type="DateTime" Name="WarrantyEndDate" Nullable="true" />
+    <Property Type="String" Name="Status" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="AssetTaggedUser" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Vendor" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Remarks" Nullable="true" />
+    <Property Type="Int32" Name="UserID" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="UserAddress" Nullable="true" MaxLength="100" />
+  </ComplexType>
+</Schema>

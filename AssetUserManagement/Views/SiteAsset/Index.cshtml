@@ -1,0 +1,70 @@
+﻿@model IEnumerable<AssetUserManagement.Site_Asset>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+    <p>
+
+        <div class="row" id="divContainer">
+            <div class="col-xs-6 col-md-4"> Asset : @Html.TextBox("assetType", null, new { @class = "form-control" })</div>
+             </div>
+        <br />
+        <input class="btn btn-info" type="submit" value="Filter" />
+    </p>
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Site)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Facility)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssetType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Asset)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssetDesc)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Site)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Facility)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssetType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Asset)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssetDesc)
+            </td>
+
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,39 @@
+﻿@model AssetUserManagement.UserDetail
+@{
+    ViewBag.Title = "LogIn";
+}
+
+<h2>LogIn</h2>
+
+@using (Html.BeginForm())
+{
+    @ViewBag.UserError
+    <table class="table">
+        <tr>
+            <th>
+                @Html.Label("UserName")
+            </th>
+            <th>
+                @Html.TextBox("UserName", null, new { @class = "form-control" }) 
+            </th>
+
+        </tr>
+
+        <tr>
+            <th>
+                @Html.Label("Password")
+            </th>
+            <th>
+                @Html.TextBox("Password", null,  new { @class = "form-control", placeholder = "Password", @type = "password"  })
+            </th>
+
+        </tr>
+
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="LogIn" class="btn btn-default" />
+        </div>
+    </div>
+}

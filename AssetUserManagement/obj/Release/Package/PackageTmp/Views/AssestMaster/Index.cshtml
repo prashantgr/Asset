@@ -1,0 +1,126 @@
+﻿@model IEnumerable<AssetUserManagement.Tbl_AssestMaster>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*<h2>Index</h2>*@
+<br />
+<p>
+    <b>
+        @Html.ActionLink("Create New", "Create")
+    </b>
+</p>
+
+
+
+@using (Html.BeginForm())
+{
+    <p>
+
+        <div class="row" id="divContainer">
+            <div class="col-xs-6 col-md-4"> Asset No: @Html.TextBox("assetNo", null, new { @class = "form-control" })</div>
+            <div class="col-xs-6 col-md-4"> Asset Type: @Html.TextBox("assetType", null, new { @class = "form-control" })</div>
+            <div class="col-xs-6 col-md-4"> Status Type: @Html.TextBox("statusType", null, new { @class = "form-control" })</div>
+        </div>
+        <br />
+        <input class="btn btn-info" type="submit" value="Filter" />
+        <input class="btn btn-info" type="button" name="cancel" id="btncancel" value="Clear All"  />
+    </p>
+}
+
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @*@Html.DisplayNameFor(model => model.AssetType)*@
+            @Html.Label("Asset No")
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.AssetType)*@
+            @Html.Label("Asset Type")
+        </th>
+        <th>
+            @Html.Label("Assigned Date")
+        </th>
+        <th>
+            @Html.Label("Warranty End Date")
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.Label("Asset Tagged User")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vendor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssetNo)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.AssetType)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WarrantyEndDate)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssetTaggedUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vendor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Remarks)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AssetNo }) |
+                @Html.ActionLink("Details", "Details", new { id = item.AssetNo }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AssetNo })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/jquery-ui.css")
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">*@
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#btncancel").click(function () {
+                //alert('sdfsdf')
+                $('input:text').val('');
+                return false;
+            });
+            });
+    </script>
+}
